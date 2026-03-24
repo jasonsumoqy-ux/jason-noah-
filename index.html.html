@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jason Noah Art — Art on Leaves & Canvas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+/* ─── Reset ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+
+/* ─── Variables ─────────────────────────────────────── */
+:root{
+  --bg:       #F5F1E8;
+  --bg2:      #EDE8DC;
+  --bg3:      #E6DFD1;
+  --olive:    #6B7D5C;
+  --olive2:   #556347;
+  --brown:    #A1866F;
+  --brown2:   #7a6454;
+  --text:     #2B2B2B;
+  --text2:    #5a5248;
+  --muted:    #9a8e82;
+  --border:   rgba(107,125,92,.18);
+  --shadow:   0 8px 40px rgba(43,43,43,.08);
+  --shadow2:  0 20px 60px rgba(43,43,43,.13);
+  --fd:       'Cormorant Garamond',serif;
+  --fb:       'Jost',sans-serif;
+  --ease:     cubic-bezier(.25,.8,.25,1);
+  --ease2:    cubic-bezier(.16,1,.3,1);
+  --max:      1240px;
+}
+
+/* ─── Base ──────────────────────────────────────────── */
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--fb);
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+img{display:block;max-width:100%;height:auto}
+
+/* ─── Utilities ─────────────────────────────────────── */
+.label{
+  font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--olive);display:inline-block;margin-bottom:1rem;
+}
+.rule{width:3rem;height:1px;background:var(--brown);margin:1.5rem 0 2rem}
+.btn{
+  display:inline-block;padding:.75rem 2.2rem;
+  border:1px solid var(--olive);color:var(--olive);
+  font-family:var(--fb);font-size:.62rem;letter-spacing:.22em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;
+  background:transparent;transition:background .3s var(--ease),color .3s var(--ease);
+}
+.btn:hover{background:var(--olive);color:var(--bg)}
+.btn-fill{background:var(--olive);color:var(--bg)}
+.btn-fill:hover{background:var(--olive2)}
+.btn-sm{padding:.55rem 1.5rem;font-size:.58rem}
+
+/* ─── Animations ─────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+
+.anim-up{animation:fadeUp .9s var(--ease2) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.38s}.d5{animation-delay:.5s}
+
+/* ─── NAV ────────────────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.3rem 3rem;
+  background:rgba(245,241,232,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  transition:padding .3s var(--ease);
+}
+.nav-logo{
+  font-family:var(--fd);font-size:1.3rem;font-weight:400;
+  letter-spacing:.12em;color:var(--text);text-decoration:none;
+}
+.nav-logo span{color:var(--olive);font-style:italic}
+.nav-links{display:flex;gap:2.4rem;list-style:none}
+.nav-links a{
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text2);text-decoration:none;
+  transition:color .25s;position:relative;padding-bottom:.2rem;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:var(--olive);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.nav-links a:hover{color:var(--olive)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* hamburger */
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:1px;background:var(--text);transition:.3s}
+
+/* ─── HERO ───────────────────────────────────────────── */
+#hero{
+  min-height:100vh;display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:0;
+  overflow:hidden;
+}
+.hero-left{
+  padding:10rem 4rem 5rem 3rem;
+  display:flex;flex-direction:column;
+  justify-content:center;
+}
+.hero-eyebrow{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--olive);margin-bottom:2rem}
+.hero-title{
+  font-family:var(--fd);
+  font-size:clamp(3.2rem,6vw,5.8rem);
+  font-weight:300;line-height:.95;
+  color:var(--text);margin-bottom:1.6rem;
+}
+.hero-title em{font-style:italic;color:var(--olive)}
+.hero-tag{
+  font-family:var(--fd);font-size:clamp(1.1rem,2vw,1.5rem);
+  font-style:italic;color:var(--brown);letter-spacing:.02em;
+  margin-bottom:1.6rem;
+}
+.hero-intro{
+  font-size:.88rem;line-height:1.85;color:var(--text2);
+  max-width:42ch;margin-bottom:2.8rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+
+.hero-right{
+  position:relative;height:100vh;overflow:hidden;
+  background:var(--bg3);
+}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 40% 50%, rgba(107,125,92,.22) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 70% at 70% 60%, rgba(161,134,111,.18) 0%,transparent 60%),
+    linear-gradient(160deg,#e8e2d5 0%,#d8d0bf 100%);
+}
+/* Decorative leaf silhouette via clip-path art */
+.hero-art{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-art-inner{
+  position:relative;width:320px;height:460px;
+}
+.leaf-shape{
+  position:absolute;
+  width:100%;height:100%;
+  background:linear-gradient(145deg,rgba(107,125,92,.14) 0%,rgba(107,125,92,.06) 100%);
+  border-radius:50% 10% 50% 10% / 40% 50% 40% 50%;
+  border:1px solid rgba(107,125,92,.2);
+}
+.leaf-shape::after{
+  content:'';position:absolute;inset:20px;
+  background:linear-gradient(160deg,rgba(107,125,92,.08) 0%,rgba(161,134,111,.1) 100%);
+  border-radius:50% 10% 50% 10% / 40% 50% 40% 50%;
+  border:1px solid rgba(107,125,92,.12);
+}
+.hero-quote{
+  position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);
+  font-family:var(--fd);font-style:italic;font-size:1.15rem;
+  color:rgba(107,125,92,.65);white-space:nowrap;letter-spacing:.04em;
+}
+.hero-scroll{
+  position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--muted);font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;
+}
+.hero-scroll::before{
+  content:'';display:block;width:1px;height:40px;
+  background:linear-gradient(to bottom,transparent,var(--brown));
+}
+
+/* ─── SECTION WRAPPER ────────────────────────────────── */
+.section-wrap{
+  max-width:var(--max);margin:0 auto;
+  padding:7rem 3rem;
+}
+.section-header{margin-bottom:4rem}
+.section-title{
+  font-family:var(--fd);
+  font-size:clamp(2rem,4.5vw,3.6rem);
+  font-weight:300;line-height:1.1;
+  color:var(--text);
+}
+.section-title em{font-style:italic;color:var(--olive)}
+
+/* ─── GALLERY ────────────────────────────────────────── */
+#gallery-section{background:var(--bg2);padding:7rem 0}
+
+.gallery-tabs{
+  display:flex;gap:0;list-style:none;
+  border-bottom:1px solid var(--border);
+  margin-bottom:3.5rem;
+}
+.gallery-tabs li a{
+  display:block;padding:.8rem 2rem;
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .25s,border-color .25s;
+}
+.gallery-tabs li a.active,
+.gallery-tabs li a:hover{color:var(--olive);border-color:var(--olive)}
+
+/* Grid panels — JS-free: use :target trick via anchors */
+.gallery-panel{display:none}
+.gallery-panel:first-of-type{display:block} /* default show first */
+.gallery-panel:target{display:block}
+/* hide others when one is targeted */
+#tab-leaf:target ~ #tab-canvas,#tab-leaf:target ~ #tab-mixed,
+#tab-canvas:target ~ #tab-mixed{display:none}
+#tab-leaf:target,#tab-canvas:target,#tab-mixed:target{display:block}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.gallery-grid.two-col{grid-template-columns:repeat(2,1fr)}
+
+.g-card{
+  position:relative;overflow:hidden;
+  background:var(--bg3);
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  transition:box-shadow .4s var(--ease),transform .4s var(--ease);
+}
+.g-card:hover{box-shadow:var(--shadow2);transform:translateY(-4px)}
+
+.g-card .aspect{position:relative;overflow:hidden}
+.g-card:nth-child(3n+1) .aspect{aspect-ratio:3/4}
+.g-card:nth-child(3n+2) .aspect{aspect-ratio:4/5}
+.g-card:nth-child(3n)   .aspect{aspect-ratio:1/1}
+
+.g-card .art-bg{position:absolute;inset:0;transition:transform .6s var(--ease)}
+.g-card:hover .art-bg{transform:scale(1.04)}
+
+/* art placeholders */
+.ab-l1{background:radial-gradient(ellipse at 50% 30%,#6B7D5C 0%,transparent 55%),radial-gradient(at 25% 75%,#A1866F55 0%,transparent 45%),linear-gradient(160deg,#cdd6c4 0%,#b4c4a8 100%)}
+.ab-l2{background:conic-gradient(from 30deg at 50% 55%,#c4b89e 0deg,#6B7D5C 70deg,#A1866F 130deg,#8faa78 210deg,#b09a7a 290deg,#c4b89e 360deg),radial-gradient(circle at 50% 50%,rgba(245,241,232,.3) 0%,transparent 65%)}
+.ab-l3{background:radial-gradient(ellipse 65% 75% at 50% 50%,#7a9668 0%,transparent 55%),radial-gradient(at 25% 30%,#A1866F50 0%,transparent 40%),linear-gradient(160deg,#d0d8c8 0%,#b8c9ac 100%)}
+.ab-l4{background:radial-gradient(at 60% 40%,#A1866F60 0%,transparent 50%),radial-gradient(at 30% 70%,#6B7D5C 0%,transparent 45%),repeating-linear-gradient(90deg,#6B7D5C14 0,transparent 1px,transparent 18px),linear-gradient(180deg,#cad4c0 0%,#b8c8ac 100%)}
+.ab-l5{background:radial-gradient(ellipse at 50% 30%,#6B7D5C44 0%,transparent 50%),radial-gradient(ellipse at 50% 75%,#8faa78 0%,transparent 45%),linear-gradient(170deg,#d4dccb 0%,#beccb0 60%,#ccd6c2 100%)}
+.ab-l6{background:conic-gradient(from 200deg at 40% 50%,#c8d0be 0deg,#A1866F28 60deg,#6B7D5C 120deg,#b09a7a35 200deg,#c8d0be 360deg),linear-gradient(135deg,#cdd5c3 0%,#b6c4aa 100%)}
+
+.ab-c1{background:radial-gradient(at 30% 60%,#9aaa7a 0%,transparent 50%),radial-gradient(at 70% 25%,#d4c4a0 0%,transparent 45%),linear-gradient(160deg,#d8d0be 0%,#bfb49e 100%)}
+.ab-c2{background:radial-gradient(ellipse at 20% 70%,#A1866F 0%,transparent 55%),radial-gradient(ellipse at 80% 25%,#6B7D5C55 0%,transparent 50%),linear-gradient(45deg,#e4ddd0 0%,#c8bca4 100%)}
+.ab-c3{background:conic-gradient(from 120deg at 40% 55%,#c8bfae 0deg,#6B7D5C40 90deg,#d8d0be 180deg,#A1866F 270deg,#c8bfae 360deg)}
+.ab-c4{background:radial-gradient(at 45% 45%,#7a9468 0%,transparent 40%),radial-gradient(at 80% 80%,#A1866F50 0%,transparent 50%),linear-gradient(200deg,#ddd7ca 0%,#c9bfac 100%)}
+.ab-c5{background:linear-gradient(170deg,#d8d2c4 0%,#A1866F 40%,#6B7D5C30 65%,#e0dace 100%)}
+.ab-c6{background:repeating-linear-gradient(45deg,#6B7D5C12 0,#6B7D5C12 2px,transparent 2px,transparent 22px),radial-gradient(at 40% 40%,#8faa78 0%,transparent 55%),linear-gradient(135deg,#d4cfc2 0%,#c2b9a6 100%)}
+
+.ab-m1{background:radial-gradient(ellipse at 40% 40%,#6B7D5C 0%,transparent 50%),radial-gradient(at 70% 70%,#A1866F 0%,transparent 45%),linear-gradient(135deg,#d0c8ba 0%,#b4a898 100%)}
+.ab-m2{background:conic-gradient(from 60deg at 50% 50%,#6B7D5C 0deg,#A1866F 80deg,#c8b89a 160deg,#8faa78 240deg,#6B7D5C 360deg)}
+.ab-m3{background:radial-gradient(at 30% 30%,#A1866F 0%,transparent 45%),radial-gradient(at 65% 65%,#6B7D5C44 0%,transparent 55%),linear-gradient(170deg,#ddd5c5 0%,#c0b09e 100%)}
+
+/* Card caption */
+.g-caption{
+  padding:1.1rem 1.2rem;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+}
+.g-caption h4{
+  font-family:var(--fd);font-style:italic;font-size:1.05rem;
+  font-weight:400;color:var(--text);margin-bottom:.25rem;
+}
+.g-caption p{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(43,43,43,.85);
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.lightbox:target{display:flex}
+.lb-inner{
+  position:relative;max-width:90vw;max-height:90vh;
+  background:var(--bg);padding:1.5rem;
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
+}
+.lb-art{width:min(560px,80vw);aspect-ratio:3/4}
+.lb-close{
+  position:absolute;top:.8rem;right:.8rem;
+  font-size:1.2rem;color:var(--text2);text-decoration:none;
+  width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;
+  background:var(--bg2);border-radius:50%;
+  transition:background .2s;
+}
+.lb-close:hover{background:var(--bg3)}
+.g-card a.g-link{
+  position:absolute;inset:0;z-index:2;
+}
+/* Hover zoom indicator */
+.g-card .zoom-hint{
+  position:absolute;top:.8rem;right:.8rem;z-index:3;
+  width:2rem;height:2rem;background:rgba(245,241,232,.9);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .3s;
+  font-size:.7rem;color:var(--olive);
+}
+.g-card:hover .zoom-hint{opacity:1}
+
+/* ─── ABOUT ──────────────────────────────────────────── */
+#about-section{background:var(--bg);padding:7rem 0}
+#about-section .inner{
+  max-width:var(--max);margin:0 auto;padding:0 3rem;
+  display:grid;grid-template-columns:1fr 1.15fr;gap:7rem;align-items:start;
+}
+.about-photo-wrap{
+  position:relative;
+}
+.about-photo-frame{
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  background:var(--bg3);
+  box-shadow:var(--shadow2);
+}
+.about-photo-frame img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+}
+/* Placeholder shown when no photo */
+.about-photo-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:
+    radial-gradient(ellipse 70% 50% at 35% 40%,rgba(107,125,92,.16) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 70% at 70% 65%,rgba(161,134,111,.18) 0%,transparent 60%),
+    linear-gradient(145deg,#e2dbd0 0%,#d4cbbf 100%);
+  gap:1rem;
+}
+.about-photo-placeholder .icon{
+  width:64px;height:64px;border:1px solid rgba(107,125,92,.3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.about-photo-placeholder .icon svg{width:28px;height:28px;stroke:var(--olive);fill:none;stroke-width:1.2}
+.about-photo-placeholder p{
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);text-align:center;max-width:16ch;
+}
+/* accent bracket lines */
+.about-photo-wrap::before{
+  content:'';position:absolute;top:-1.5rem;left:-1.5rem;
+  width:3rem;height:3rem;
+  border-top:1px solid var(--olive);border-left:1px solid var(--olive);
+  pointer-events:none;
+}
+.about-photo-wrap::after{
+  content:'';position:absolute;bottom:-1.5rem;right:-1.5rem;
+  width:3rem;height:3rem;
+  border-bottom:1px solid var(--brown);border-right:1px solid var(--brown);
+  pointer-events:none;
+}
+.about-pull{
+  font-family:var(--fd);font-size:1.7rem;font-style:italic;
+  font-weight:300;line-height:1.35;color:var(--olive2);
+  border-left:2px solid var(--olive);padding-left:1.5rem;
+  margin:2.5rem 0;
+}
+.about-text p{
+  font-size:.92rem;line-height:1.9;color:var(--text2);margin-bottom:1.3rem;
+}
+.about-text p strong{color:var(--text);font-weight:400}
+.about-countries{
+  display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;
+}
+.country-tag{
+  padding:.35rem .9rem;background:var(--bg2);
+  border:1px solid var(--border);font-size:.58rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ─── SHOP ───────────────────────────────────────────── */
+#shop-section{background:var(--bg2);padding:7rem 0}
+.shop-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2rem;
+}
+.shop-card{
+  background:var(--bg);
+  box-shadow:var(--shadow);
+  transition:box-shadow .4s var(--ease),transform .4s var(--ease);
+}
+.shop-card:hover{box-shadow:var(--shadow2);transform:translateY(-3px)}
+.shop-card .art-thumb{
+  aspect-ratio:4/5;position:relative;overflow:hidden;
+}
+.shop-card .art-thumb .art-bg{
+  position:absolute;inset:0;transition:transform .6s var(--ease);
+}
+.shop-card:hover .art-thumb .art-bg{transform:scale(1.04)}
+.shop-status{
+  position:absolute;top:.8rem;left:.8rem;
+  padding:.3rem .75rem;font-size:.55rem;
+  letter-spacing:.18em;text-transform:uppercase;
+}
+.status-avail{background:var(--olive);color:var(--bg)}
+.status-sold{background:var(--brown2);color:var(--bg)}
+.shop-info{padding:1.3rem 1.4rem 1.5rem}
+.shop-info h4{
+  font-family:var(--fd);font-style:italic;font-size:1.2rem;
+  font-weight:400;color:var(--text);margin-bottom:.5rem;
+}
+.shop-meta{font-size:.62rem;letter-spacing:.1em;color:var(--muted);margin-bottom:.2rem}
+.shop-actions{display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;flex-wrap:wrap;gap:.7rem}
+.shop-price{font-family:var(--fd);font-size:1.3rem;color:var(--olive2)}
+
+/* ─── CONTACT ────────────────────────────────────────── */
+#contact-section{background:var(--bg);padding:7rem 0}
+#contact-section .inner{
+  max-width:var(--max);margin:0 auto;padding:0 3rem;
+  display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:start;
+}
+.contact-left p{
+  font-size:.9rem;line-height:1.85;color:var(--text2);margin-bottom:1.4rem;
+}
+.contact-item{
+  display:flex;gap:1rem;align-items:center;margin-bottom:1rem;
+}
+.contact-icon{
+  width:2.2rem;height:2.2rem;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.contact-icon svg{width:14px;height:14px;stroke:var(--olive);fill:none;stroke-width:1.5}
+.contact-item a{
+  font-size:.78rem;letter-spacing:.08em;color:var(--text2);
+  text-decoration:none;transition:color .25s;
+}
+.contact-item a:hover{color:var(--olive)}
+
+.collab-note{
+  margin-top:2.5rem;padding:1.5rem;background:var(--bg2);
+  border-left:2px solid var(--olive);
+}
+.collab-note p{
+  font-family:var(--fd);font-style:italic;font-size:1.05rem;
+  color:var(--text2);line-height:1.6;margin:0;
+}
+
+.contact-form{display:flex;flex-direction:column;gap:1.4rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.form-group{display:flex;flex-direction:column;gap:.55rem}
+.form-group label{
+  font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);
+}
+.form-group input,.form-group textarea,.form-group select{
+  background:transparent;border:none;
+  border-bottom:1px solid rgba(107,125,92,.25);
+  color:var(--text);font-family:var(--fb);
+  font-size:.88rem;font-weight:300;
+  padding:.7rem 0;outline:none;
+  transition:border-color .3s var(--ease);
+  -webkit-appearance:none;appearance:none;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--olive)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(90,82,72,.35)}
+.form-group textarea{resize:none;min-height:110px}
+.form-note{font-size:.7rem;color:var(--muted);line-height:1.6;margin-top:.5rem}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer{
+  background:var(--bg3);
+  border-top:1px solid var(--border);
+  padding:3rem;
+  max-width:100%;
+}
+footer .inner{
+  max-width:var(--max);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
+}
+.footer-logo{
+  font-family:var(--fd);font-size:1.15rem;font-style:italic;color:var(--brown2);
+}
+.footer-links{display:flex;gap:2rem;list-style:none}
+.footer-links a{
+  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .25s;
+}
+.footer-links a:hover{color:var(--olive)}
+.footer-copy{font-size:.58rem;letter-spacing:.1em;color:var(--muted)}
+
+/* ─── LIGHTBOX PANELS ────────────────────────────────── */
+.lb-panel{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(43,43,43,.88);
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
+}
+.lb-panel:target{display:flex}
+.lb-box{
+  position:relative;background:var(--bg);
+  padding:1.5rem;max-width:86vw;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+  text-align:center;
+}
+.lb-art-view{
+  width:min(480px,75vw);aspect-ratio:3/4;
+  position:relative;overflow:hidden;margin-bottom:1rem;
+}
+.lb-info h3{font-family:var(--fd);font-style:italic;font-size:1.3rem;color:var(--text)}
+.lb-info p{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.lb-close-btn{
+  position:absolute;top:.6rem;right:.6rem;
+  width:1.8rem;height:1.8rem;background:var(--bg2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;color:var(--text2);font-size:.85rem;
+  transition:background .2s;
+}
+.lb-close-btn:hover{background:var(--bg3)}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:1024px){
+  #hero{grid-template-columns:1fr;min-height:auto}
+  .hero-right{height:55vw;min-height:320px}
+  .hero-left{padding:9rem 3rem 4rem}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .shop-grid{grid-template-columns:repeat(2,1fr)}
+  #about-section .inner{grid-template-columns:1fr;gap:3.5rem}
+  .about-photo-wrap{max-width:340px}
+  #contact-section .inner{grid-template-columns:1fr;gap:3rem}
+}
+@media(max-width:700px){
+  #nav{padding:1rem 1.5rem}
+  .nav-links{
+    display:none;flex-direction:column;gap:0;
+    position:absolute;top:100%;left:0;right:0;
+    background:rgba(245,241,232,.97);
+    border-top:1px solid var(--border);
+    padding:1rem 0;
+  }
+  .nav-links.open{display:flex}
+  .nav-links li a{padding:.8rem 2rem;font-size:.65rem;letter-spacing:.18em}
+  .nav-toggle{display:flex}
+  .hero-left{padding:7rem 1.5rem 3rem}
+  .hero-right{height:50vw;min-height:260px}
+  .section-wrap,.about-section .inner,#contact-section .inner{padding-left:1.5rem;padding-right:1.5rem}
+  #about-section .inner,#contact-section .inner{padding:0 1.5rem}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gallery-tabs li a{padding:.7rem 1rem;font-size:.58rem}
+  .shop-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  footer .inner{flex-direction:column;align-items:flex-start}
+  .footer-links{gap:1.4rem;flex-wrap:wrap}
+}
+@media(max-width:460px){
+  .gallery-grid{grid-template-columns:1fr}
+  .shop-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Jason <span>Noah</span> Art</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#gallery-section">Gallery</a></li>
+    <li><a href="#about-section">About</a></li>
+    <li><a href="#shop-section">Available Works</a></li>
+    <li><a href="#contact-section">Contact</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-left">
+    <span class="hero-eyebrow anim-up d1">Fine Art · France</span>
+    <h1 class="hero-title anim-up d2">Jason<br><em>Noah</em><br>Art</h1>
+    <p class="hero-tag anim-up d3">Art on leaves &amp; canvas</p>
+    <p class="hero-intro anim-up d4">Where nature becomes a canvas and memory becomes colour. Jason Noah transforms the fragile, a dried leaf, a stretch of linen, into windows of emotion, identity, and quiet wonder.</p>
+    <div class="hero-btns anim-up d5">
+      <a href="#gallery-section" class="btn btn-fill">View Gallery</a>
+      <a href="#about-section" class="btn">About the Artist</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-art">
+      <div class="hero-art-inner">
+        <div class="leaf-shape"></div>
+        <div class="hero-quote">Nature is the first canvas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ═════════════════════════════════════════ -->
+<div id="gallery-section">
+<div class="section-wrap" style="padding-bottom:0">
+  <div class="section-header">
+    <span class="label">Works</span>
+    <h2 class="section-title">The <em>Gallery</em></h2>
+    <div class="rule"></div>
+    <p style="font-size:.9rem;color:var(--text2);max-width:52ch;line-height:1.8">A collection of works created on canvas and natural leaves, where each piece carries its own story, texture, and emotion. Inspired by nature and shaped by personal experience.</p>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="gallery-tabs">
+    <li><a href="#tab-leaf" class="active" onclick="switchTab(this,'tab-leaf')">Leaf Art</a></li>
+    <li><a href="#tab-canvas" onclick="switchTab(this,'tab-canvas')">Canvas Paintings</a></li>
+    <li><a href="#tab-mixed" onclick="switchTab(this,'tab-mixed')">Mixed Works</a></li>
+  </ul>
+</div>
+
+<div class="section-wrap" style="padding-top:0">
+
+  <!-- ── Leaf Art Panel ── -->
+  <div class="gallery-panel" id="tab-leaf">
+    <div class="gallery-grid">
+      <div class="g-card">
+        <a href="#lb-l1" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5dec96d1c75.jpg" alt="The Path Within" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>The Path Within</h4><p>Acrylic on Leaf · 2018</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-l2" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5e4f1a7b393.jpg" alt="Roots of Memory" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Roots of Memory</h4><p>Watercolour on Leaf · 2018</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-l3" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5e53f00ba2c__1_.jpg" alt="Living Veins" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Living Veins</h4><p>Ink on Dried Leaf · 2018</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-l4" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5e61fd5d52e.jpg" alt="Quiet Wilderness" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Quiet Wilderness</h4><p>Acrylic on Leaf · 2018</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-l5" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5e458f41f46.jpg" alt="Ancient Ground" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Ancient Ground</h4><p>Mixed Media on Leaf · 2018</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-l6" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5fbf836cd4f.jpg" alt="Breath of the Forest" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Breath of the Forest</h4><p>Watercolour on Leaf · 2018</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Canvas Paintings Panel ── -->
+  <div class="gallery-panel" id="tab-canvas" style="display:none">
+    <div class="gallery-grid">
+      <div class="g-card">
+        <a href="#lb-c1" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/cxdsweaq.jpg" alt="Bloom and Flight" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Bloom and Flight</h4><p>Acrylic on Canvas · 2021</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c2" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/_DSC1862ghhghfy.jpg" alt="Mind Forest" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Mind Forest</h4><p>Acrylic on Canvas · 2021</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c3" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/_DSC4890.jpg" alt="The Garden Window" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>The Garden Window</h4><p>Acrylic on Canvas · 2021</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c4" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/_DSC6567.jpg" alt="Open Sea" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Open Sea</h4><p>Oil on Canvas · 2021</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c5" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/276295443_4803509143052052_2221249140912220941_n.jpg" alt="City of Souls" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>City of Souls</h4><p>Oil on Canvas · 2023</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c6" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/276997336_4796070360462597_3193684731047087674_n.jpg" alt="Phoenix Rising" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Phoenix Rising</h4><p>Acrylic on Canvas · 2022</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c7" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/215672538_3963870847015890_6801289831372259346_n.jpg" alt="Wild Spirit" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Wild Spirit</h4><p>Acrylic on Canvas · 2021</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c8" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5d960c9300d96.jpg" alt="Autumn Soul" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Autumn Soul</h4><p>Acrylic on Canvas · 2019</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-c9" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5da5c098afea8.jpg" alt="Cracked Beauty" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Cracked Beauty</h4><p>Oil on Canvas · 2019</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mixed Works Panel ── -->
+  <div class="gallery-panel" id="tab-mixed" style="display:none">
+    <div class="gallery-grid">
+      <div class="g-card">
+        <a href="#lb-m1" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5b5dec96d1c75.jpg" alt="The Lone Walk" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>The Lone Walk</h4><p>Mixed Media · 2018</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-m2" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5c3de025d1152.jpg" alt="Untold Story" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Untold Story</h4><p>Mixed Media · 2019</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-m3" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5cacb0caf18d0.jpg" alt="The Elder" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>The Elder</h4><p>Oil on Canvas · 2019</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-m4" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/2000_5d752d9f1e871.jpg" alt="Vortex" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Vortex</h4><p>Acrylic on Canvas · 2019</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-m5" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/106426713_2930716146998037_8938823005053951855_n.jpg" alt="The Red Coat" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>The Red Coat</h4><p>Acrylic on Canvas · 2020</p></div>
+      </div>
+      <div class="g-card">
+        <a href="#lb-m6" class="g-link"></a>
+        <div class="aspect"><img src="/mnt/user-data/uploads/121812520_3239740079428974_6405440433669641858_n.jpg" alt="Fire at Dusk" style="width:100%;height:100%;object-fit:cover"/></div>
+        <div class="zoom-hint">&#x2B0C;</div>
+        <div class="g-caption"><h4>Fire at Dusk</h4><p>Oil on Canvas · 2020</p></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section-wrap -->
+</div><!-- /gallery-section -->
+
+<!-- ══ LIGHTBOXES ══════════════════════════════════════ -->
+<!-- Leaf -->
+<div class="lb-panel" id="lb-l1"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5dec96d1c75.jpg" alt="The Path Within" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>The Path Within</h3><p>Acrylic on Leaf · 2018 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-l2"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5e4f1a7b393.jpg" alt="Roots of Memory" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Roots of Memory</h3><p>Watercolour on Leaf · 2018 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-l3"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5e53f00ba2c__1_.jpg" alt="Living Veins" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Living Veins</h3><p>Ink on Dried Leaf · 2018 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-l4"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5e61fd5d52e.jpg" alt="Quiet Wilderness" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Quiet Wilderness</h3><p>Acrylic on Leaf · 2018 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-l5"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5e458f41f46.jpg" alt="Ancient Ground" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Ancient Ground</h3><p>Mixed Media on Leaf · 2018 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-l6"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5fbf836cd4f.jpg" alt="Breath of the Forest" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Breath of the Forest</h3><p>Watercolour on Leaf · 2018 · Original</p></div></div></div>
+<!-- Canvas -->
+<div class="lb-panel" id="lb-c1"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/cxdsweaq.jpg" alt="Bloom and Flight" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Bloom and Flight</h3><p>Acrylic on Canvas · 2021 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c2"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/_DSC1862ghhghfy.jpg" alt="Mind Forest" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Mind Forest</h3><p>Acrylic on Canvas · 2021 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c3"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/_DSC4890.jpg" alt="The Garden Window" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>The Garden Window</h3><p>Acrylic on Canvas · 2021 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c4"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/_DSC6567.jpg" alt="Open Sea" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Open Sea</h3><p>Oil on Canvas · 2021 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c5"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/276295443_4803509143052052_2221249140912220941_n.jpg" alt="City of Souls" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>City of Souls</h3><p>Oil on Canvas · 2023 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c6"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/276997336_4796070360462597_3193684731047087674_n.jpg" alt="Phoenix Rising" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Phoenix Rising</h3><p>Acrylic on Canvas · 2022 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c7"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/215672538_3963870847015890_6801289831372259346_n.jpg" alt="Wild Spirit" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Wild Spirit</h3><p>Acrylic on Canvas · 2021 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c8"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5d960c9300d96.jpg" alt="Autumn Soul" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Autumn Soul</h3><p>Acrylic on Canvas · 2019 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-c9"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5da5c098afea8.jpg" alt="Cracked Beauty" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Cracked Beauty</h3><p>Oil on Canvas · 2019 · Original</p></div></div></div>
+<!-- Mixed -->
+<div class="lb-panel" id="lb-m1"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5b5dec96d1c75.jpg" alt="The Lone Walk" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>The Lone Walk</h3><p>Mixed Media · 2018 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-m2"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5c3de025d1152.jpg" alt="Untold Story" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Untold Story</h3><p>Mixed Media · 2019 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-m3"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5cacb0caf18d0.jpg" alt="The Elder" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>The Elder</h3><p>Oil on Canvas · 2019 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-m4"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/2000_5d752d9f1e871.jpg" alt="Vortex" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Vortex</h3><p>Acrylic on Canvas · 2019 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-m5"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/106426713_2930716146998037_8938823005053951855_n.jpg" alt="The Red Coat" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>The Red Coat</h3><p>Acrylic on Canvas · 2020 · Original</p></div></div></div>
+<div class="lb-panel" id="lb-m6"><div class="lb-box"><a class="lb-close-btn" href="#">&#x2715;</a><div class="lb-art-view"><img src="/mnt/user-data/uploads/121812520_3239740079428974_6405440433669641858_n.jpg" alt="Fire at Dusk" style="width:100%;height:100%;object-fit:contain"/></div><div class="lb-info"><h3>Fire at Dusk</h3><p>Oil on Canvas · 2020 · Original</p></div></div></div>
+
+<!-- ══ ABOUT ════════════════════════════════════════════ -->
+<div id="about-section">
+  <div class="inner">
+
+    <div class="about-photo-wrap">
+      <div class="about-photo-frame" id="aboutPhotoFrame">
+        <img src="/mnt/user-data/uploads/ja_new_painting.jpg" alt="Jason Noah in his studio" style="width:100%;height:100%;object-fit:cover;object-position:top center"/>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <span class="label">The Artist</span>
+      <h2 class="section-title">Jason <em>Noah</em></h2>
+      <div class="rule"></div>
+
+      <p>Jason Noah is a <strong>multidisciplinary artist</strong> whose work bridges nature, memory, and human emotion. Working across canvas and organic surfaces such as real tree leaves, he transforms fragile materials into lasting visual stories.</p>
+
+      <div class="about-pull">"Even a single leaf can hold a universe of emotion."</div>
+
+      <p>His art is deeply influenced by his personal journey and cultural roots, often reflecting themes of <strong>survival, identity, and connection</strong>. Each piece carries a sense of movement and life, where texture and detail invite the viewer into a quiet but powerful dialogue.</p>
+
+      <p>Every painting begins not with a plan, but with a feeling. A gesture, a colour, a memory that quietly insists on being expressed. Jason follows that instinct until the work finds its own voice, often revealing a truth he did not know he was carrying. The result is art that feels both deeply personal and universally human.</p>
+
+      <p>He has <strong>exhibited his work across many countries</strong>, bringing his unique vision to international audiences who find in his work both the familiar and the profoundly unexpected.</p>
+
+      <div class="about-countries">
+        <span class="country-tag">France</span>
+        <span class="country-tag">Germany</span>
+        <span class="country-tag">Luxembourg</span>
+        <span class="country-tag">Greece</span>
+        <span class="country-tag">United States</span>
+      </div>
+
+      <div style="margin-top:2.5rem">
+        <a href="#contact-section" class="btn">Get In Touch</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ AVAILABLE WORKS / SHOP ═══════════════════════════ -->
+<div id="shop-section">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="label">Acquire</span>
+    <h2 class="section-title">Available <em>Works</em></h2>
+    <div class="rule"></div>
+    <p style="font-size:.9rem;color:var(--text2);max-width:55ch;line-height:1.8">Each piece is a one-of-a-kind original. To enquire about pricing, shipping, or a custom commission, use the button below each work.</p>
+  </div>
+
+  <div class="shop-grid">
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5b5e53f00ba2c__1_.jpg" alt="Quite Volcano" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Quite Volcano</h4>
+        <p class="shop-meta">Oil on Canvas · 120 × 88 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">1,200 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5b5e458f41f46.jpg" alt="Untold Story" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Untold Story</h4>
+        <p class="shop-meta">Oil on Canvas · 70 × 60 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">480 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5b5e4f1a7b393.jpg" alt="Peace Cemetery" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Peace Cemetery</h4>
+        <p class="shop-meta">Oil on Canvas · 50 × 70 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">680 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5b5fbf836cd4f.jpg" alt="Stronger Than Storms of Life" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Stronger Than Storms of Life</h4>
+        <p class="shop-meta">Oil on Canvas · 41 × 33 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">360 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5c3de025d1152.jpg" alt="Riptide" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Riptide</h4>
+        <p class="shop-meta">Oil on Canvas · 50 × 50 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">480 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5cacb0caf18d0.jpg" alt="The Fire of Injustice" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>The Fire of Injustice</h4>
+        <p class="shop-meta">Oil on Canvas · 50 × 70 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">490 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5d752d9f1e871.jpg" alt="Vortex" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Vortex</h4>
+        <p class="shop-meta">Oil on Canvas · 80 × 60 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">480 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5d960c9300d96.jpg" alt="Believe" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Believe</h4>
+        <p class="shop-meta">Oil on Canvas · 80 × 60 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">480 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/2000_5da5c098afea8.jpg" alt="Soul Scars" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Soul Scars</h4>
+        <p class="shop-meta">Oil on Canvas · 90 × 70 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">800 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/_DSC6567.jpg" alt="Open Sea" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Open Sea</h4>
+        <p class="shop-meta">Oil on Canvas · 80 × 60 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">480 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/276997336_4796070360462597_3193684731047087674_n.jpg" alt="Phoenix Rising" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Phoenix Rising</h4>
+        <p class="shop-meta">Acrylic on Canvas · 50 × 70 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">490 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="art-thumb">
+        <img src="/mnt/user-data/uploads/215672538_3963870847015890_6801289831372259346_n.jpg" alt="Wild Spirit" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <span class="shop-status status-avail">Available</span>
+      </div>
+      <div class="shop-info">
+        <h4>Wild Spirit</h4>
+        <p class="shop-meta">Acrylic on Canvas · 60 × 60 cm</p>
+        <div class="shop-actions">
+          <span class="shop-price">490 €</span>
+          <a href="#contact-section" class="btn btn-sm">Inquire</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:3.5rem">
+    <a href="#contact-section" class="btn">Commission a Custom Work</a>
+  </div>
+</div>
+</div>
+
+<!-- ══ CONTACT ══════════════════════════════════════════ -->
+<div id="contact-section">
+  <div class="inner">
+
+    <div class="contact-left">
+      <span class="label">Reach Out</span>
+      <h2 class="section-title">Let's <em>Connect</em></h2>
+      <div class="rule"></div>
+      <p>Whether you wish to acquire an original piece, commission a new work, or invite Jason to exhibit — every conversation is welcome.</p>
+      <p>Replies are typically sent within two working days.</p>
+
+      <div style="margin-top:2rem">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <a href="/cdn-cgi/l/email-protection#6c1f18190805032c060d1f030202030d040d1e18420f0301"><span class="__cf_email__" data-cfemail="b6c5c2c3d2dfd9f6dcd7c5d9d8d8d9d7ded7c4c298d5d9db">[email&#160;protected]</span></a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <!-- Instagram icon -->
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <a href="https://instagram.com/jasonnoahart" target="_blank">@jasonnoahart</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span style="font-size:.78rem;letter-spacing:.08em;color:var(--text2)">Forbach, Grand Est, France</span>
+        </div>
+      </div>
+
+      <div class="collab-note">
+        <p>Open to collaborations, gallery exhibitions, and international shows. If you believe in the power of art to tell human stories, let's make something together.</p>
+      </div>
+    </div>
+
+    <form class="contact-form" action="#" method="post">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Your full name"/>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" placeholder="your@email.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cf-subject">I am interested in…</label>
+        <select id="cf-subject" name="subject">
+          <option value="" disabled selected>Select a topic</option>
+          <option>Acquiring an original work</option>
+          <option>Commissioning a new piece</option>
+          <option>Exhibition / Collaboration</option>
+          <option>Press / Media enquiry</option>
+          <option>General message</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" placeholder="Tell me what you have in mind…"></textarea>
+      </div>
+      <p class="form-note">All enquiries are treated with care and discretion. I look forward to hearing from you.</p>
+      <div>
+        <button type="submit" class="btn btn-fill">Send Message</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <div class="inner">
+    <span class="footer-logo">Jason Noah Art</span>
+    <ul class="footer-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#gallery-section">Gallery</a></li>
+      <li><a href="#about-section">About</a></li>
+      <li><a href="#shop-section">Works</a></li>
+      <li><a href="#contact-section">Contact</a></li>
+    </ul>
+    <span class="footer-copy">&copy; 2024 Jason Noah. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ══════════════════════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Tab switching
+function switchTab(el, panelId) {
+  // deactivate all tabs
+  document.querySelectorAll('.gallery-tabs a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  // hide all panels
+  document.querySelectorAll('.gallery-panel').forEach(p => p.style.display = 'none');
+  // show selected
+  document.getElementById(panelId).style.display = 'block';
+}
+
+// Close lightbox on backdrop click
+document.querySelectorAll('.lb-panel').forEach(lb => {
+  lb.addEventListener('click', e => {
+    if (e.target === lb) window.location.hash = '#';
+  });
+});
+
+// Smooth nav shrink on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.style.padding = window.scrollY > 60 ? '1rem 3rem' : 
